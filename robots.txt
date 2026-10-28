@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://benwardjd-ai.github.io/sitemap.xml
