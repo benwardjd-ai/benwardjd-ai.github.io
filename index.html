@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>W-DEVs · Portafolio</title>
+  <meta name="description" content="Portafolio de W-DEVs: sitios web para clínicas, restaurantes, pastelerías y tiendas de ropa. Diseño y desarrollo con React + Vite." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232c3cf0'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='28' text-anchor='middle' fill='%23ffffff'%3EW%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    /* Layout: dossier de estudio; hero tipográfico, rejilla 2x2 de proyectos, cada vista previa en la identidad de su cliente */
+    :root {
+      --bg: #e9ebee;
+      --surface: #f7f8f9;
+      --text: #12141a;
+      --muted: #5b6070;
+      --line: rgba(18, 20, 26, 0.12);
+      --line-strong: rgba(18, 20, 26, 0.32);
+      --accent: #2c3cf0;
+      --on-accent: #ffffff;
+      --accent-hover: #1d2bd0;
+      --sans: 'Figtree', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #101218; --surface: #181b23; --text: #eceef3; --muted: #9298a8;
+        --line: rgba(236, 238, 243, 0.12); --line-strong: rgba(236, 238, 243, 0.34);
+        --accent: #8f9bff; --on-accent: #0c0f2e; --accent-hover: #aab3ff; color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #101218; --surface: #181b23; --text: #eceef3; --muted: #9298a8;
+      --line: rgba(236, 238, 243, 0.12); --line-strong: rgba(236, 238, 243, 0.34);
+      --accent: #8f9bff; --on-accent: #0c0f2e; --accent-hover: #aab3ff; color-scheme: dark;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1232px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+    /* Header */
+    header { padding: 22px 0; border-bottom: 1px solid var(--line); }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { font-family: var(--display); font-weight: 800; font-stretch: 110%; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+    .brand span { color: var(--accent); }
+    nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+    nav a { text-decoration: none; transition: color .2s; }
+    nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: clamp(64px, 12vw, 140px) clamp(48px, 8vw, 96px); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 12px var(--mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .eyebrow::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--line); }
+    h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-stretch: 112%;
+      font-size: clamp(44px, 9vw, 120px);
+      line-height: .92;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+      margin: 22px 0 28px;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lead { max-width: 560px; font-size: clamp(16px, 2vw, 19px); color: var(--muted); }
+    .stats { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 44px; }
+    .stat b { display: block; font-variant-numeric: tabular-nums; font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+    .stat span { font-size: 13px; color: var(--muted); }
+
+    /* Projects */
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: 32px; }
+    .section-head h2 { text-wrap: balance; font-family: var(--display); font-weight: 700; font-size: clamp(26px, 4vw, 40px); letter-spacing: -0.03em; }
+    .section-head p { color: var(--muted); font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform .5s var(--ease), border-color .3s; }
+    .card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+
+    .preview { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: block; text-decoration: none; }
+    .preview .inner { position: absolute; inset: 0; padding: 22px 24px; display: flex; flex-direction: column; transition: transform .8s var(--ease); }
+    .card:hover .preview .inner { transform: scale(1.035); }
+    .mini-nav { display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+    .mini-nav i { font-style: normal; display: flex; gap: 14px; }
+    .preview .big { margin-top: auto; }
+    .open-tag { position: absolute; right: 16px; bottom: 16px; font: 500 12px var(--sans); padding: 7px 12px; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; backdrop-filter: blur(6px); opacity: 0; transform: translateY(6px); transition: .4s var(--ease); }
+    .card:hover .open-tag, .preview:focus-visible .open-tag { opacity: 1; transform: none; }
+
+    /* Brand previews, using each site's own palette and type */
+    .p-dental .inner { background: radial-gradient(120% 90% at 85% 10%, #8ea597 0%, transparent 55%), #f5f1ea; color: #16332d; }
+    .p-dental .big { font-family: 'Instrument Serif', serif; font-size: clamp(34px, 5.4vw, 64px); line-height: .95; }
+    .p-dental .big em { color: #c2a36b; }
+    .p-dental .pill { display: inline-block; margin-top: 14px; font: 600 11px var(--sans); background: #16332d; color: #f5f1ea; padding: 8px 14px; border-radius: 999px; }
+
+    .p-pasteleria .inner { background: #efdcd5; color: #3b2721; align-items: center; text-align: center; }
+    .p-pasteleria .arch { position: absolute; left: 50%; bottom: -10%; width: 46%; aspect-ratio: 3/4; transform: translateX(-50%); border-radius: 999px 999px 0 0; background: linear-gradient(180deg, #c98f86, #b08752); opacity: .55; }
+    .p-pasteleria .big { position: relative; margin: auto 0; font-family: 'Bodoni Moda', serif; font-size: clamp(32px, 5vw, 60px); line-height: 1; }
+    .p-pasteleria .big small { display: block; font: 300 11px var(--sans); letter-spacing: .3em; text-transform: uppercase; margin-top: 10px; }
+    .p-pasteleria .mini-nav { width: 100%; position: relative; }
+
+    .p-restaurante .inner { background: radial-gradient(70% 80% at 50% 120%, #c8582c 0%, rgba(200,88,44,.25) 40%, transparent 70%), #0e0c0a; color: #ede5d8; }
+    .p-restaurante .big { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(36px, 5.6vw, 66px); line-height: .95; }
+    .p-restaurante .big em { color: #c9a26b; }
+
+    .p-ropa .inner { background: #f1efea; color: #0b0b0b; }
+    .p-ropa .big { font-family: 'Archivo', sans-serif; font-weight: 900; font-stretch: 125%; font-size: clamp(54px, 10vw, 128px); line-height: .8; letter-spacing: -0.05em; }
+    .p-ropa .stripe { position: absolute; right: 0; top: 0; bottom: 0; width: 34%; background: #0b0b0b; }
+    .p-ropa .stripe::after { content: 'DROP 04'; position: absolute; top: 22px; right: 24px; color: #f1efea; font: 600 10px var(--sans); letter-spacing: .12em; }
+    .p-ropa .mini-nav { position: relative; width: 66%; }
+
+    .body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .meta { font: 500 11px var(--mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .body h3 { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; line-height: 1.15; }
+    .body p { color: var(--muted); font-size: 15px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags li { list-style: none; font: 500 11px var(--mono); padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); }
+    ul.tags { padding: 0; }
+    .actions { display: flex; gap: 10px; margin-top: auto; padding-top: 6px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); transition: background .25s, color .25s, border-color .25s; }
+    .btn svg { width: 16px; height: 16px; }
+    .btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .btn.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+    .btn:not(.primary):hover { border-color: var(--text); }
+
+    /* Services + footer */
+    .services { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: clamp(72px, 10vw, 120px); }
+    .services ul { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; padding: 0; margin-top: 28px; }
+    .services li { list-style: none; background: var(--bg); padding: 26px 22px; }
+    .services li b { display: block; font-family: var(--display); font-size: 18px; margin-bottom: 6px; }
+    .services li span { color: var(--muted); font-size: 14px; }
+    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+      .services ul { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      nav { display: none; }
+      .services ul { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: start; }
+      .mini-nav i { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#">W<span>-</span>DEVs</a>
+      <nav>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="https://github.com/benwardjd-ai" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <span class="eyebrow">Diseño y desarrollo web</span>
+      <h1>Sitios que hacen<br />crecer tu <em>negocio.</em></h1>
+      <p class="lead">Soy Daniel, ingeniero de software. Con W-DEVs diseño y desarrollo páginas web para negocios locales: rápidas, adaptadas al celular y con pedidos o citas directo a WhatsApp.</p>
+      <div class="stats">
+        <div class="stat"><b>4</b><span>proyectos publicados</span></div>
+        <div class="stat"><b>React + Vite</b><span>stack principal</span></div>
+        <div class="stat"><b>100%</b><span>responsivos</span></div>
+      </div>
+    </section>
+
+    <section id="proyectos" class="wrap">
+      <div class="section-head">
+        <h2>Proyectos</h2>
+        <p>Proyectos demo · negocios ficticios</p>
+      </div>
+
+      <div class="grid">
+        <!-- Clínica dental -->
+        <article class="card">
+          <a class="preview p-dental" href="https://benwardjd-ai.github.io/wdevs-clinica-dental/" target="_blank" rel="noopener" aria-label="Abrir el sitio de Clara Estudio Dental">
+            <div class="inner">
+              <div class="mini-nav"><span>Clara</span><i><span>Tratamientos</span><span>Equipo</span><span>Agenda</span></i></div>
+              <div class="big">Tu sonrisa,<br /><em>sin prisas.</em><br /><span class="pill">Agendar cita</span></div>
+            </div>
+            <span class="open-tag">Ver sitio ↗</span>
+          </a>
+          <div class="body">
+            <span class="meta">Salud · Clínica dental</span>
+            <h3>Clara · Estudio Dental</h3>
+            <p>Consultorio boutique con vista previa de tratamientos, contadores animados, equipo, testimonios, preguntas frecuentes y agenda de citas por WhatsApp.</p>
+            <ul class="tags"><li>React</li><li>Vite</li><li>Agenda por WhatsApp</li><li>Animaciones</li></ul>
+            <div class="actions">
+              <a class="btn primary" href="https://benwardjd-ai.github.io/wdevs-clinica-dental/" target="_blank" rel="noopener">Ver sitio <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+              <a class="btn" href="https://github.com/benwardjd-ai/wdevs-clinica-dental" target="_blank" rel="noopener">Código</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Restaurante -->
+        <article class="card">
+          <a class="preview p-restaurante" href="https://benwardjd-ai.github.io/wdevs-restaurante/" target="_blank" rel="noopener" aria-label="Abrir el sitio de Brasa y Maíz">
+            <div class="inner">
+              <div class="mini-nav"><span>Brasa &amp; Maíz</span><i><span>Carta</span><span>Mezcalería</span><span>Reservar</span></i></div>
+              <div class="big">Fuego lento,<br /><em>maíz criollo.</em></div>
+            </div>
+            <span class="open-tag">Ver sitio ↗</span>
+          </a>
+          <div class="body">
+            <span class="meta">Restaurante · Cocina a la leña</span>
+            <h3>Brasa &amp; Maíz</h3>
+            <p>Sitio editorial con intro animada, efecto Ken Burns, carrusel de platillos, carta por categorías, parallax, galería y reservaciones por WhatsApp.</p>
+            <ul class="tags"><li>React</li><li>Vite</li><li>Reservaciones</li><li>Parallax</li></ul>
+            <div class="actions">
+              <a class="btn primary" href="https://benwardjd-ai.github.io/wdevs-restaurante/" target="_blank" rel="noopener">Ver sitio <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+              <a class="btn" href="https://github.com/benwardjd-ai/wdevs-restaurante" target="_blank" rel="noopener">Código</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Pastelería -->
+        <article class="card">
+          <a class="preview p-pasteleria" href="https://benwardjd-ai.github.io/wdevs-pasteleria/" target="_blank" rel="noopener" aria-label="Abrir el sitio de Dulce Merengue">
+            <div class="inner">
+              <span class="arch"></span>
+              <div class="mini-nav"><span>Colección</span><span>Pedidos</span></div>
+              <div class="big"><em>Dulce Merengue</em><small>Pâtisserie artesanal</small></div>
+            </div>
+            <span class="open-tag">Ver sitio ↗</span>
+          </a>
+          <div class="body">
+            <span class="meta">Pastelería · Tienda en línea</span>
+            <h3>Dulce Merengue · Pâtisserie</h3>
+            <p>Tienda con colección filtrable, carrito de pedido, configurador de pastel con precio en vivo y envío del pedido completo por WhatsApp.</p>
+            <ul class="tags"><li>React</li><li>Vite</li><li>Carrito</li><li>Configurador</li></ul>
+            <div class="actions">
+              <a class="btn primary" href="https://benwardjd-ai.github.io/wdevs-pasteleria/" target="_blank" rel="noopener">Ver sitio <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+              <a class="btn" href="https://github.com/benwardjd-ai/wdevs-pasteleria" target="_blank" rel="noopener">Código</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ropa -->
+        <article class="card">
+          <a class="preview p-ropa" href="https://benwardjd-ai.github.io/wdevs-ropa/" target="_blank" rel="noopener" aria-label="Abrir el sitio de NORTE Ropa urbana">
+            <div class="inner">
+              <span class="stripe"></span>
+              <div class="mini-nav"><span>Tienda</span><span>Lookbook</span></div>
+              <div class="big" style="position:relative">NOR<br />TE</div>
+            </div>
+            <span class="open-tag">Ver sitio ↗</span>
+          </a>
+          <div class="body">
+            <span class="meta">Moda · E-commerce</span>
+            <h3>NORTE · Ropa urbana</h3>
+            <p>E-commerce editorial con cursor personalizado, hero tipográfico animado, compra rápida por talla, lookbook, bolsa con envío gratis y checkout por WhatsApp.</p>
+            <ul class="tags"><li>React</li><li>Vite</li><li>E-commerce</li><li>Lookbook</li></ul>
+            <div class="actions">
+              <a class="btn primary" href="https://benwardjd-ai.github.io/wdevs-ropa/" target="_blank" rel="noopener">Ver sitio <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+              <a class="btn" href="https://github.com/benwardjd-ai/wdevs-ropa" target="_blank" rel="noopener">Código</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="servicios" class="services wrap">
+      <div class="section-head">
+        <h2>¿Qué incluye tu sitio?</h2>
+        <p>Para restaurantes, cafés, salud, belleza y tiendas</p>
+      </div>
+      <ul>
+        <li><b>Diseño a medida</b><span>Identidad propia, nada de plantillas genéricas.</span></li>
+        <li><b>Listo para celular</b><span>Se ve y funciona bien en cualquier pantalla.</span></li>
+        <li><b>Pedidos por WhatsApp</b><span>Citas, reservas y pedidos directo a tu chat.</span></li>
+        <li><b>Rápido y publicado</b><span>Carga en segundos y queda en línea.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 W-DEVs · Daniel</span>
+      <a href="https://github.com/benwardjd-ai" target="_blank" rel="noopener">github.com/benwardjd-ai</a>
+    </div>
+  </footer>
+</body>
+</html>
