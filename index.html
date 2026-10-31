@@ -118,6 +118,14 @@
     .p-ropa .stripe::after { content: 'DROP 04'; position: absolute; top: 22px; right: 24px; color: #f1efea; font: 600 10px var(--sans); letter-spacing: .12em; }
     .p-ropa .mini-nav { position: relative; width: 66%; }
 
+    .card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1fr; }
+    .card.featured .preview { aspect-ratio: auto; min-height: 340px; }
+    .p-chalco .inner { background: radial-gradient(90% 90% at 90% 0%, rgba(90,169,230,.45) 0%, transparent 60%), linear-gradient(160deg, #071d4f, #0b2a6b 55%, #16399a); color: #fff; }
+    .p-chalco .big { font-family: 'Instrument Serif', serif; font-size: clamp(36px, 5vw, 62px); line-height: .98; }
+    .p-chalco .big em { color: #9fd3f7; }
+    .p-chalco .pill { display: inline-block; margin-top: 16px; font: 600 11px var(--sans); background: #25d366; color: #fff; padding: 8px 14px; border-radius: 999px; }
+    .p-chalco .tooth { position: absolute; right: 24px; bottom: 22px; width: 92px; opacity: .9; }
+    .badge-real { display: inline-flex; align-self: flex-start; font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 4px 10px; }
     .body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
     .meta { font: 500 11px var(--mono); color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
     .body h3 { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: -0.02em; line-height: 1.15; }
@@ -145,6 +153,8 @@
 
     @media (max-width: 860px) {
       .grid { grid-template-columns: 1fr; }
+      .card.featured { grid-template-columns: 1fr; }
+      .card.featured .preview { aspect-ratio: 16 / 10; min-height: 0; }
       .services ul { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 520px) {
@@ -176,7 +186,7 @@
       <h1>Sitios que hacen<br />crecer tu <em>negocio.</em></h1>
       <p class="lead">Soy Daniel, ingeniero de software. Con W-DEVs diseño y desarrollo páginas web para negocios locales: rápidas, adaptadas al celular y con pedidos o citas directo a WhatsApp.</p>
       <div class="stats">
-        <div class="stat"><b>4</b><span>proyectos publicados</span></div>
+        <div class="stat"><b>5</b><span>proyectos publicados</span></div>
         <div class="stat"><b>React + Vite</b><span>stack principal</span></div>
         <div class="stat"><b>100%</b><span>responsivos</span></div>
       </div>
@@ -185,10 +195,32 @@
     <section id="proyectos" class="wrap">
       <div class="section-head">
         <h2>Proyectos</h2>
-        <p>Proyectos demo · negocios ficticios</p>
+        <p>Negocios reales y proyectos demo</p>
       </div>
 
       <div class="grid">
+        <!-- Clínica de Especialidades Dentales Chalco -->
+        <article class="card featured">
+          <a class="preview p-chalco" href="https://benwardjd-ai.github.io/wdevs-clinica-chalco/" target="_blank" rel="noopener" aria-label="Abrir el sitio de Clínica de Especialidades Dentales Chalco">
+            <div class="inner">
+              <div class="mini-nav"><span>Especialidades Dentales</span><i><span>Servicios</span><span>Especialista</span><span>Ubicación</span></i></div>
+              <div class="big">Cuidamos tu sonrisa,<br /><em>transformamos vidas.</em><br /><span class="pill">Agendar por WhatsApp</span></div>
+              <svg class="tooth" viewBox="0 0 120 70" aria-hidden="true"><path d="M8 14c4 18 22 30 52 30s48-12 52-30" fill="none" stroke="#5aa9e6" stroke-width="7" stroke-linecap="round"/><path d="M38 6c6-6 16-4 22 0 6-4 16-6 22 0 6 7 4 18-2 26H40c-6-8-8-19-2-26z" fill="#9fd3f7"/><path d="M44 46c2 10 4 20 8 20s4-10 8-10 4 10 8 10 6-10 8-20z" fill="#5aa9e6"/></svg>
+            </div>
+            <span class="open-tag">Ver sitio ↗</span>
+          </a>
+          <div class="body">
+            <span class="badge-real">Negocio real · Valle de Chalco</span>
+            <span class="meta">Salud · Clínica dental</span>
+            <h3>Clínica de Especialidades Dentales Chalco</h3>
+            <p>Sitio premium en azul rey y celeste con fotos reales de la clínica: 6 servicios, perfil del especialista con sus certificaciones, galería con visor, horarios, ubicación y formulario que envía la solicitud de cita directo a WhatsApp.</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Citas por WhatsApp</li><li>Responsivo</li></ul>
+            <div class="actions">
+              <a class="btn primary" href="https://benwardjd-ai.github.io/wdevs-clinica-chalco/" target="_blank" rel="noopener">Ver sitio <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+            </div>
+          </div>
+        </article>
+
         <!-- Clínica dental -->
         <article class="card">
           <a class="preview p-dental" href="https://benwardjd-ai.github.io/wdevs-clinica-dental/" target="_blank" rel="noopener" aria-label="Abrir el sitio de Clara Estudio Dental">
